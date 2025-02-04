@@ -1,4 +1,5 @@
 const { defineConfig } = require('@playwright/test');
+require('dotenv').config({ path: '.env.test' });
 
 module.exports = defineConfig({
   testDir: './tests',
@@ -12,6 +13,7 @@ module.exports = defineConfig({
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
+    baseURL: `http://localhost:${process.env.PORT}`,
   },
   projects: [
     {

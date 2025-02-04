@@ -1,6 +1,8 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -83,5 +85,5 @@ app.post('/post', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Todo backend running at http://localhost:${port}`);
+    console.log(`Todo backend running at http://localhost:${port} in ${process.env.NODE_ENV} mode`);
 }); 

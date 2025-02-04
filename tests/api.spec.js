@@ -1,10 +1,8 @@
 const { test, expect } = require('@playwright/test');
 
 test.describe('Todo API Tests', () => {
-  const baseUrl = 'http://localhost:3000';
-
   test('should read all todos', async ({ request }) => {
-    const response = await request.get(`${baseUrl}/read`);
+    const response = await request.get('/read');
     expect(response.ok()).toBeTruthy();
     
     const todos = await response.json();
@@ -23,7 +21,7 @@ test.describe('Todo API Tests', () => {
       task: 'Test todo item'
     };
 
-    const response = await request.post(`${baseUrl}/post`, {
+    const response = await request.post('/post', {
       data: newTodo
     });
     
@@ -36,7 +34,7 @@ test.describe('Todo API Tests', () => {
     expect(createdTodo.completed).toBe(false);
 
     // Verify the todo was actually added by reading all todos
-    const getAllResponse = await request.get(`${baseUrl}/read`);
+    const getAllResponse = await request.get('/read');
     const allTodos = await getAllResponse.json();
     const foundTodo = allTodos.find(todo => todo.id === createdTodo.id);
     expect(foundTodo).toBeTruthy();
@@ -44,11 +42,11 @@ test.describe('Todo API Tests', () => {
   });
 
   test('should fail when creating todo without task', async ({ request }) => {
-    const response = await request.post(`${baseUrl}/post`, {
+    const response = await request.post('/post', {
       data: {}
     });
     
-    expect(response.status()).toBe(400); // Now expecting 400 Bad Request
+    expect(response.status()).toBe(400);
     const errorResponse = await response.json();
     expect(errorResponse).toHaveProperty('error');
     expect(errorResponse.error).toBe('Task is required and must be a non-empty string');
