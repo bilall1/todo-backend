@@ -9,6 +9,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      PORT: ${{ secrets.PORT || 3000 }}
+      NODE_ENV: ${{ secrets.NODE_ENV || 'test' }}
 
     steps:
     - uses: actions/checkout@v4
@@ -24,8 +27,8 @@ jobs:
 
     - name: Create env file
       run: |
-        echo "PORT=3000" >> .env.test
-        echo "NODE_ENV=test" >> .env.test
+        echo "PORT=${{ secrets.PORT }}" >> .env.test
+        echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> .env.test
 
     - name: Start server and run tests
       run: |
