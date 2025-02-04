@@ -13,4 +13,12 @@ module.exports = defineConfig({
       'Content-Type': 'application/json',
     },
   },
+  projects: [
+    {
+      name: 'api',
+      use: {
+        browserName: undefined,
+      },
+    },
+  ],
 }); 
