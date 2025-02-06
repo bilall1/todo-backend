@@ -13,22 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Use Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-
-    - name: Install dependencies
-      run: npm ci
-
-    - name: Create env file
+    - name: Build and test in Docker
       run: |
-        echo "PORT=${{ secrets.PORT }}" >> .env.test
-        echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> .env.test
-
-    - name: Start server and run tests
-      run: |
-        npm start & # Start the server in background
-        sleep 5 # Wait for server to start
-        npm test # Run the tests 
+        docker build -t todo-app .
+        docker run --rm todo-app npm test 
