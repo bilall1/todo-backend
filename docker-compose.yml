@@ -2,12 +2,13 @@ version: '3'
 services:
   app:
     build: .
+    image: todo-backend-app
     command: npm start
     ports:
       - "3000:3000"
 
   test:
-    build: .
+    image: todo-backend-app
     command: npm test
     depends_on:
       - app
