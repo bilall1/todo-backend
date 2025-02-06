@@ -13,7 +13,7 @@ module.exports = defineConfig({
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
-    baseURL: 'http://app:3000',
+    baseURL: process.env.API_URL || 'http://localhost:3000',
   },
   projects: [
     {
